@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  VPCParam:
+    Type: String
+    Default: 10.16.0.0/16
+  SubnetParam:
+    Type: String
+    Default: 10.16.0.0/24
+
+Resources:
+  myvpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock:
+        !Ref VPCParam
+  mysubnet:
+    Type: AWS::EC2::Subnet
+    DependsOn: myvpc
+    Properties:
+      VpcId: 
+        !Ref myvpc
+      CidrBlock:
+        !Ref SubnetParam
+

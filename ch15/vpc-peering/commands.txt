@@ -1,0 +1,21 @@
+These commands are for the vpc peering example 
+
+# create peer iam role using the accepter account
+aws cloudformation create-stack --stack-name vpc-peer-iam  --template-body file://vpc-peering-accept.yaml --capabilities CAPABILITY_IAM 
+
+# create peer request from the requester account
+aws cloudformation create-stack --stack-name vpc-peer-req  --template-body file://vpc-peering-req.yaml 
+
+# Inspect the stacks:
+aws cloudformation describe-stacks --stack-name vpc-peer-iam --output table
+aws cloudformation describe-stacks --stack-name vpc-peer-req --output table
+
+
+# verify resources created:
+aws cloudformation describe-stack-resources --stack-name vpc-peer-iam --output table
+aws cloudformation describe-stack-resources --stack-name vpc-peer-req --output table
+
+# delete the stack
+aws cloudformation delete-stack --stack-name vpc-peer-iam --output table
+aws cloudformation delete-stack --stack-name vpc-peer-req --output table
+

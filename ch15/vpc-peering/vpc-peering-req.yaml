@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  PeerVPCIdParam:
+    Type: String
+    Default: ''
+  PeerVPCAccountIdParam:
+    Type: String
+    Default: ''
+    Description: 'The AWS Account ID of the accepter of the VPC peering connection'
+  PeerRoleArnParam:
+    Type: String
+    Default: 'arn:aws:iam:::role/vpc-peer-iam-peerRole'
+    Description: 'The ARN of the role that the accepter of the VPC peering connection will assume'
+  
+Resources:
+  vpc:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.2.0.0/16
+      EnableDnsSupport: false
+      EnableDnsHostnames: false
+      InstanceTenancy: default
+  vpcPeeringConnection:
+    Type: 'AWS::EC2::VPCPeeringConnection'
+    Properties:
+      VpcId: !Ref vpc
+      PeerVpcId: !Ref PeerVPCIdParam
+      PeerOwnerId: !Ref PeerVPCAccountIdParam
+      PeerRoleArn: !Ref PeerRoleArnParam

@@ -1,0 +1,13 @@
+These commands are from exercise 15.2  
+
+# create the stack
+aws cloudformation create-stack --stack-name vpc-param --template-body file://vpc-param.yaml
+
+# Inspect the stack:
+aws cloudformation describe-stacks --stack-name vpc-param --output table
+
+# verify resources created:
+aws cloudformation describe-stack-resources --stack-name vpc-param --output table
+
+# delete the stack
+aws cloudformation delete-stack --stack-name vpc-param

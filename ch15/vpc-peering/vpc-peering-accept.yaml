@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  PeerRequesterAccountIdParam:
+    Type: String
+    Default: ''
+    Description: 'The AWS Account ID of the requester of the VPC peering connection'
+
+Resources:
+  peerRole:
+      Type: 'AWS::IAM::Role'
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            - Principal:
+                AWS: !Ref PeerRequesterAccountIdParam
+              Action:
+                - 'sts:AssumeRole'
+              Effect: Allow
+        Path: /
+        Policies:
+          - PolicyName: root
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: Allow
+                  Action: 'ec2:AcceptVpcPeeringConnection'
+                  Resource: '*'

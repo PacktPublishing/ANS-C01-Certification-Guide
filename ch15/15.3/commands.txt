@@ -1,0 +1,13 @@
+These commands are from exercise 15.3 
+
+# create the stack
+aws cloudformation create-stack --stack-name vpc-fn-cidr --template-body file://vpc-fn-cidr.yaml
+
+# Inspect the stack:
+aws cloudformation describe-stacks --stack-name vpc-fn-cidr --output table
+
+# verify resources created:
+aws cloudformation describe-stack-resources --stack-name vpc-fn-cidr --output table
+
+# delete the stack
+aws cloudformation delete-stack --stack-name vpc-fn-cidr
